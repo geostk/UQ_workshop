@@ -1,0 +1,121 @@
+\documentclass[10pt]{beamer}
+\setbeamerfont{structure}{family=\rmfamily} 
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{hyperref}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{caption}[numbered]
+\usetheme{default} 
+\usecolortheme{seahorse}
+\mode<presentation>
+{
+   \setbeamercovered{transparent}
+   \setbeamertemplate{items}[ball]
+   \setbeamertemplate{theorems}[numbered]
+   \setbeamertemplate{footline}[frame number]
+
+}
+
+\begin{document}
+\title {\bfseries{\sc Uncertainty in Geo-science:\\ A Workshop on Hazard Analysis}}
+\author {Prof. Abani Patra}
+\institute{University	at	Buffalo }
+\date{\small 15-17 March , 2016} 
+%--------------------------------------------------------------------------%
+\begin{frame}
+\titlepage
+\end{frame}
+%---------------------------------------------------------------------------%
+\section*{OUTLINE}
+\begin{frame}
+\frametitle{OUTLINE}  
+\tableofcontents
+\end{frame}
+%---------------------------------------------------------------------------
+
+\section{Problem Definition}
+\begin{frame}
+\frametitle{Problem Statement}
+Study of physical phenomena involved with uncertainty in input parameters: 
+\begin{itemize}
+    \item  {\bf Intrusive}: change the original governing equation.
+    \begin{itemize}
+        \item Polynomial Chaos Stochastic Galerkin.
+        \item Perturbation methods
+        \item ...
+    \end{itemize}
+    \item  {\bf Non-intrusive}: \textit{ do not} change the original governing equation.
+    \begin{itemize}
+        \item Monte Carlo \& LHS
+        \item Important sampling Methods
+        \item Non-intrusive spectral projection (NISP)
+        \item ...
+    \end{itemize}
+\end{itemize}
+\end{frame}
+%---------------------------------------------------------------------------%
+\section{LHS}
+\begin{frame}
+\frametitle{Latin Hypercube Sampling (LHS)}
+Generating a sample set of uncertain values from equally probable intervals of the probability density function.\\
+
+{\bf Algorithm}:
+
+\begin{enumerate}
+    \item Select the pdf
+    \item Select the number of samples
+    \item Divide the pdf function into equal probability intervals.
+    \item Generate random samples on each interval.
+\end{enumerate}
+{\bf Advantage}:
+\begin{itemize}
+    \item Much less number of samples require for convergence compared to MC
+    \item No need to change the original solver (like any other non-intrusive method)
+\end{itemize}
+
+
+\end{frame}
+%-------------------------------------------------------------------------------%
+\section{PCQ}
+
+\begin{frame}
+\frametitle{Polynomial Chaos Quadrature (PCQ)}
+The basic idea comes from projection theory that each function can be written as an expansion of a series of orthogonal function:\\
+\begin{align*}
+     h(\eta)= \sum_i a_i \Psi_i (\eta) 
+\end{align*}
+
+So any uncertain parameter in the model can be expressed as above. \\
+Usually in UQ we are interested in computing the moments (an integral), by using the concept of the quadrature points for computing those integrals and truncating the series after few terms we can approximate the desired functions effectively.  
+
+
+
+\end{frame}
+%-------------------------------------------------------------
+%---------------------------------------------------------------------------%
+
+
+% \begin{frame}{References}
+%   \begin{thebibliography}{99}
+%   \bibitem{one}
+% Anis Das Sharma, Alpa Jain, Kong Yu, " Dynamic Relationship and Event Discvery".
+% \bibitem{two}
+% Nguyen Bach and Sameer Badaskar, Presentation on "Survey on Relation Extraction".
+% \bibitem{three}
+% Sunita Sarawagi, "Surv"
+
+% \end{thebibliography}
+% \end{frame}
+% %---------------------------------------------------------------------------%
+
+\begin{frame}
+\Large
+\begin{center}
+ \sc {Thank You \ldots} 
+\end{center}
+\end{frame}
+%---------------------------------------------------------------------------%
+\end{document}
