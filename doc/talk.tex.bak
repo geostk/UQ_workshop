@@ -156,9 +156,7 @@ The basic procedure of running the PCQ script:
  \frametitle{Instructions for PCQ script}
  \begin{itemize}
  \item {\bf Plot plume height (or mass loading) as a function of random parameters}:\\
- Maybe need to modify the xlable and ylabel, title...
  \item {\bf Plot histogram of plume height (or mass loading) for specific distribution of input parameters}:\\
- You can try different number of bins ect. depends on you.
 \end{itemize}
 \end{frame}
 %-------------------------------------------------------------
