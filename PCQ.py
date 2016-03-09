@@ -186,16 +186,12 @@ def test_coef(coef, si1, si2, dis1, dis2):
 """
  Generate sample points for parameters
 """
-num_sample_radius=4
-num_sample_speed=5
-total_samples=num_sample_radius*num_sample_speed
-
-radius=222
-speed=333
+num_sample_radius=2
+num_sample_speed=2
 
 #radius is a number in [100-300] or 200(+-)100
 mean_radius=200
-range_radius=60
+range_radius=100
 
 #temerature is a number in [100-300] or 200(+-)100
 mean_speed=200
@@ -226,6 +222,13 @@ weight2=smpling2[1]
 """
  Run simulation with sampled parameters
 """
+
+total_samples=num_sample_radius*num_sample_speed
+
+radius=222
+speed=333
+
+
 fp = open(os.path.join(os.getcwd(),'puffin/puffin.inp'),'r')
 simdata = fp.read()
 fp.close
