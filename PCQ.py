@@ -16,8 +16,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 """
 ==============================================================================================SUB FUNCTIONS: FUNCTIONS THAT WILL BE CALLED IN MAIN FUNCTION============================================================================================================
-
-===============================================================================================================DO NOT MODIFY THIS CODE============================================================================================================
 """
 """
  Recurrence coefficients for monic Jacobi polynomials.
@@ -301,6 +299,10 @@ def generate_samples(dis, number_of_smaples_each_rv, a, b):
          print ("input parameter dis(distribution of underlying random variables) is not recognizable, please double check!") 
     
     return smpling
+ 
+"""   
+===============================================================================================================MAIN FUNCTION OF PCQ============================================================================================================
+"""    
 """
 Wrapp up of PCQ
 """  
@@ -325,15 +327,21 @@ def PCQ_UQ (num_sample, mean_rv, range_rv, v_dis, name, rv_value, alf, beta):
     smpling1=sample_gaussian_dis(dis1, num_sample_radius, alf, beta)
     smpling2=sample_gaussian_dis(dis2, num_sample_speed, alf, beta)
 
-    #This portition might not be correctly done
-    samples_radius=smpling1[0]+mean_radius
-    samples_speed=smpling2[0]+mean_speed
+    if name[0]=="Uniform":
+        samples_radius=smpling1[0]*range_radius+mean_radius
+    else:
+        samples_radius=smpling1[0]+mean_radius
+        
+    if name[1]=="Uniform":
+        samples_speed=smpling2[0]*range_speed+mean_speed
+    else:
+        samples_speed=smpling2[0]+mean_speed    
 
     weight1=smpling1[1]
     weight2=smpling2[1]
 
     """
-    ==============================================================================================modification needed below this line============================================================================================================
+    After this point, done with parameters preparion  
     """
     dircs_name ='PCQ'
     run_puffin (samples_radius, samples_speed, radius, speed, dircs_name)
@@ -471,7 +479,7 @@ def PCQ_UQ (num_sample, mean_rv, range_rv, v_dis, name, rv_value, alf, beta):
 
 
     """
-    Then resample random space with a huge amout of sample points (tensor product of sample points of two independent sample pooints in each direction)
+    Then resample random space with a huge number of sample points (tensor product of sample points of two independent sample pooints in each direction)
     plug sample point into the expression
     got distribution of h
     """
@@ -479,7 +487,7 @@ def PCQ_UQ (num_sample, mean_rv, range_rv, v_dis, name, rv_value, alf, beta):
     number_of_smaples_each_rv=500
     
     s1=generate_samples(dis1, number_of_smaples_each_rv, alf, beta)
-    s2=generate_samples(dis2, number_of_smaples_each_rv, alf, beta)
+    s2=generate_samples(dis2, number_of_smaples_each_rv, alf, beta)  
 
     fig = plt.figure()
     h_hist=test_coef(coef, s1, s2, dis1, dis2, alf, beta)
@@ -493,6 +501,10 @@ def PCQ_UQ (num_sample, mean_rv, range_rv, v_dis, name, rv_value, alf, beta):
     plt.title('Histogram for Particle Mass Flux')
     plt.show()
     
+"""
+A piece of script for running PCQ_UQ
+Be happy to play with it
+"""    
 #alf=0.5
 #beta=0.5
 #num_sample=[2,2]
