@@ -1,0 +1,143 @@
+\documentclass[10pt]{beamer}
+\setbeamerfont{structure}{family=\rmfamily} 
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{hyperref}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{caption}[numbered]
+\usetheme{default} 
+\usecolortheme{seahorse}
+\mode<presentation>
+{
+   \setbeamercovered{transparent}
+   \setbeamertemplate{items}[ball]
+   \setbeamertemplate{theorems}[numbered]
+   \setbeamertemplate{footline}[frame number]
+
+}
+
+\begin{document}
+\title {\bfseries{\sc Emulator for Hazard Analysis:\\ A Usage tutorial}}
+\author {Prof. Abani Patra}
+\institute{University	at	Buffalo }
+\date{\small 15-17 March , 2016} 
+%--------------------------------------------------------------------------%
+\begin{frame}
+\titlepage
+\end{frame}
+%---------------------------------------------------------------------------%
+\section*{OUTLINE}
+\begin{frame}
+\frametitle{OUTLINE}  
+\tableofcontents
+\end{frame}
+%---------------------------------------------------------------------------
+
+\section{Background}
+\begin{frame}
+\frametitle{Background}
+Direct Computation of Elevation height and Particle flux may be computationally very expensive.\\
+\vspace{1mm}
+For handling the complexity, a simple Emulator could be constructed \\
+Some features of the presented model are:\\
+\begin{itemize} 
+    \item  Assumes the underlying distribution as a Gaussian Stochastic process
+    \item Capable of studying the correlation between the input parameters
+    \item The parameters for the fitted model can be computed through MLE as well as REML
+    \item For providing an intuition regarding accuracy, the display panel shows the location of the LHS generated points on the mean surface for the gaussian distribution.
+    \item For validating the model, the emulator also provides a visual description of the residuals of the sample points along with the standard errors for sample as well as LHS points
+
+\end{itemize}
+\end{frame}
+%---------------------------------------------------------------------------%
+
+\section{MPErK}
+\begin{frame}
+\frametitle{MPErK (a MATLAB program for Parametric Empirical Kriging)}
+Views computer experiments as gaussian stochastic process.\\
+\begin{align*}
+     Y(x)= \beta^Tf(x) + z(x)   
+\end{align*}
+
+\vspace{3mm}
+
+ 
+f(x): px1 vector of regression functions\\
+\(\beta\): Unknown vector of regression parameters\\
+z(x): zero mean covariance 
+
+\vspace{2mm}
+
+For any inputs x1 and x2
+\begin{align*}
+     Cov(z(x1),z(x2))= \sigma^{2}R((x1-x2)/{\epsilon} )   
+\end{align*}
+
+\(\epsilon\) can be computed through MLE or REML\\
+R could represent Gaussian, PowerExponential or Cubic correlation functions
+\end{frame}
+
+%---------------------------------------------------------------------------%
+\section{Emulator}
+\begin{frame}
+\frametitle{Emulator Usage}
+Using the constructed emulator is fairly simple and involve following steps:\\
+
+{\bf Input}:
+\begin{itemize}
+    \item Input the data as Follows
+    \begin{itemize}
+        \item The data should be passed in a .csv format
+        \item There should be four columns in the csv file in the order: Water Fraction, Temperature, followed by corresponding Eruption height and Particle flux
+        \item For passing the data, just click the 'UPLOAD' button in the emulator and select your .csv file
+   \end{itemize}
+    \item Select the type of Correlation functions which seem to be most suitable for the data
+    \item Selection the optimization criterion for determining the correlation parameter
+    \item Cross validation could be carried out based on the options mentioned in analysis part
+\end{itemize}
+
+\end{frame}
+%-------------------------------------------------------------------------------%
+\begin{frame}
+In order to analyze the performance of the constructed model, following visualization could be used \\
+\vspace{4mm}
+{\bf Analysis}:
+\begin{itemize}
+    \item Standard Error for the LHS generated dataset
+    \item Standard Error for the Input sample
+    \item Residuals for the Input sample
+\end{itemize}
+\vspace{4mm}
+Based on the visualizations for the gaussian mean surface as well as plots for the residulas and standard error, the decisions regarding the underlying correlation structure could be made
+\end{frame}
+
+%---------------------------------------------------------------------------%
+
+
+
+
+
+% \begin{frame}{References}
+%   \begin{thebibliography}{99}
+%   \bibitem{one}
+% Anis Das Sharma, Alpa Jain, Kong Yu, " Dynamic Relationship and Event Discvery".
+% \bibitem{two}
+% Nguyen Bach and Sameer Badaskar, Presentation on "Survey on Relation Extraction".
+% \bibitem{three}
+% Sunita Sarawagi, "Surv"
+
+% \end{thebibliography}
+% \end{frame}
+% %---------------------------------------------------------------------------%
+
+\begin{frame}
+\Large
+\begin{center}
+ \sc {Thank You \ldots} 
+\end{center}
+\end{frame}
+%---------------------------------------------------------------------------%
+\end{document}
