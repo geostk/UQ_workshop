@@ -22,7 +22,7 @@ function varargout = Emulator(varargin)
 
 % Edit the above text to modify the response to help Emulator
 
-% Last Modified by GUIDE v2.5 06-Mar-2016 13:12:59
+% Last Modified by GUIDE v2.5 08-Mar-2016 17:07:09
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -66,6 +66,8 @@ global ypred1;
 global ypred2;
 global val;
 global data;
+global value;
+global prob;
 
 
 % --- Outputs from this function are returned to the command line.
@@ -157,9 +159,6 @@ x = data(:,1:2);
 y = data(:,3:4);
 
 
-for i= 1:64
-    %data(i,4)
-end
 
 %clear data,file
 
@@ -171,8 +170,9 @@ for i = 1:16
     xpred(i,2) = min(x(:,2)) + rand(1)*(max(x(:,2))-min(x(:,2)));
 end
 
+length = size(x);
 
-F = [ones(64,1) x(:,1) x(:,2) diag(x(:,1)*(x(:,2))')];   
+F = [ones(length(1),1) x(:,1) x(:,2) diag(x(:,1)*(x(:,2))')];   
         
 Fpred = [ones(16,1) xpred(:,1) xpred(:,2) diag(xpred(:,1)*(xpred(:,2))')];
 
@@ -373,3 +373,102 @@ function pushbutton8_Callback(hObject, eventdata, handles)
 global data
 file = uigetfile;
 data = csvread(file);
+
+
+
+function height_Callback(hObject, eventdata, handles)
+% hObject    handle to height (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global value;
+value = str2double(get(handles.height,'String'));
+
+
+
+
+
+
+% Hints: get(hObject,'String') returns contents of height as text
+%        str2double(get(hObject,'String')) returns contents of height as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function height_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to height (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in pushbutton9.
+function pushbutton9_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton9 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global ypred1;
+global ypred2;
+global value;
+global prob;
+param1 = ypred1.est.beta; % Eruption height
+param2 = ypred2.est.beta; % particle flux
+
+x1 = 0.01 + 0.04*rand(10000,1);
+
+x2 = 800 + 600*rand(10000,1);
+
+mat = [ones(10000,1) x1 x2 x1.*x2]; 
+
+
+height = mat*param1;
+
+p=sum(height<value);
+
+prob = p/10000;
+
+probability = num2str(prob)
+set(handles.prob,'String',probability);
+
+
+
+% --- Executes during object creation, after setting all properties.
+function edit2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function prob_Callback(hObject, eventdata, handles)
+% hObject    handle to prob (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of prob as text
+%        str2double(get(hObject,'String')) returns contents of prob as a double
+
+
+
+
+
+% --- Executes during object creation, after setting all properties.
+function prob_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to prob (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
