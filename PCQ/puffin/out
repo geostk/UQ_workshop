@@ -1,0 +1,47 @@
+ VOLCANO NAME:Eyjafjallajokull                                            
+ ERUPTION DATE:"2010 04 14 00:00"                                          
+ PLUME SHAPE:poisson                                                     
+ VENT RADIUS:          111  M
+ AXIAL VENT/JET VELOCITY:   200.00000      M/S
+ WATER CONTENT:   3.0000000      WT %
+ ERUPTION TEMPERATURE:   1200.0000      K
+ ANGLE THE PLUME MAKES WITH THE HORIZON:   90.000000      DEG
+ HEIGHT OF VENT ABOVE SEA LEVEL:   1666.0000      M
+ ERUPTION TYPE: PHREATOPLINIAN          
+ PARTICLE DENSITY:   1000.0000      KG/M^3
+ PARTICLE SHAPE FACTOR:  0.80000001    
+ FRACTION OF TOTAL PARTICLE POPULATION 
+    SUCH PARTICLES REPRESENT?   1.0000000    
+ GRAIN-SIZES TO PRINT (PHIMIN PHIMAX):  -1.0000000       0.0000000    
+ Using raw data file: SondeKEF_2010_04_14_00Z.txt
+ columns for height:  4 temperature:  5 wind speed:  7 density: 10
+ Found         2321  significant data points in SondeKEF_2010_04_14_00Z.txt
+ Data file parsed, read         2321  of total         2322  lines.
+ Height range in data [m]:   0.3800E+02  0.2617E+05
+ flags - interp,umbrella =  T F
+ VENT RADIUS:         111  M
+ INIT ATM RHOA0, TA0:   1.0894001       265.23999    
+ PLUME INIT. DENSITY:   4.9490409         0.14918742    
+ INIT MASS FLUX:   38313064.    
+ INIT MOMENTUM FLUX:  7.66261248E+09
+ INIT THERMAL FLUX:  5.16214929E+13
+ INIT MASS FLUX OF PARTICLES:   37163676.    
+    mu =  4.000 sigma =  2.000 mu_rand =  0.000
+ current height,uz,rho =      0.0   200.0  4.9490
+ current height,uz,rho =   1000.0    65.5  0.6524
+ current height,uz,rho =   2000.0    47.1  0.7013
+ current height,uz,rho =   3000.0    29.9  0.7054
+ current height,uz,rho =   4000.0    16.2  0.6892
+ rhol:   1.53183937E-05 drhoa/dz:  -9.08970833E-05 Hb:    5724.1670    
+ NEUTRAL BUOYANCY HEIGHT:     5724.1670      M
+ ERUPTION PLUME HEIGHT:     5825.6855      M
+ RADIUS AT HB:     10583.200      M
+ ATM DENSITY AT HB:    0.68486047      KG/CU M
+ PARTICLE FLUX AT HB:     11823470.      KG/S
+ VOLUME FLUX AT HB:    3.22073011E+09  CU M/S
+   9.8070002      0.68486047      0.68494380       1.0000000    
+         111   38313064.       5825.6855    
+puff --ashOutput=false --model=reanalysis --rcfile puffrc --volc Eyjafjallajokull --volcLat 63.63N --volcLon 19.62W --eruptDate "2010 04 14 00:00" --plumeShape poisson --runHours 72 --nAsh 4000000 --gridOutput=True --gridBox -14.8819:32.8058/37.3622:68.3775/0:16000 --plumeMax     5825.7 --plumeMin   5724.2 --plumeHwidth     12.145 --plumeZwidth    0.051 --ashLogMean -4.20302 --ashLogSdev  0.90163 
+Length of puff string:  399
+ puff command line is written to: run.puff
+   
