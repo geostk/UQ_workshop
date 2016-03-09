@@ -252,11 +252,11 @@ def extract_height_particle_flux (total_samples, dircs_name):
             if line.find("ERUPTION PLUME HEIGHT")>-1:
                 info = line.split()
                 eruption_height[i]=float(info[3])
-    
-    out_file_name1=dircs_name+"UQ_eruption_height.csv"
-    out_file_name2=dircs_name+"UQ_particle_flux.csv"      
-    np.savetxt(out_file_name1, eruption_height, delimiter=",") 
-    np.savetxt(out_file_name2, particle_flux, delimiter=",")
+                           
+    #out_file_name1=dircs_name+"output.csv"
+    #out_file_name2=dircs_name+"UQ_particle_flux.csv"      
+    #np.savetxt(out_file_name1, eruption_height, delimiter=",") 
+    #np.savetxt(out_file_name2, particle_flux, delimiter=",")
                 
     return (particle_flux, eruption_height)
                 
@@ -339,6 +339,15 @@ def PCQ_UQ (num_sample, mean_rv, range_rv, v_dis, name, rv_value, alf, beta):
     run_puffin (samples_radius, samples_speed, radius, speed, dircs_name)
 
     particle_flux, eruption_height = extract_height_particle_flux (total_samples, dircs_name)
+    
+    pcq=np.zeros((total_samples,2))    
+    pcq[:,0] = np.repeat(samples_radius, num_sample_speed, axis=0)
+    pcq[:,1] = np.array(samples_speed.tolist()*num_sample_radius)
+    
+    output=np.vstack((pcq[:,0],pcq[:,1],eruption_height,particle_flux)).T
+    
+    np.savetxt("pcq_output.csv", output, delimiter=",")
+    
     """
     Compute mean and standard variance
     """ 
