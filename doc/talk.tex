@@ -73,10 +73,8 @@ Generating a sample set of uncertain values from equally probable intervals of t
     \item Much less number of samples require for convergence compared to MC
     \item No need to change the original solver (like any other non-intrusive method)
 \end{itemize}
-
-
+%---------------------------------------------------------------------------%
 \end{frame}
-%-------------------------------------------------------------------------------%
 \section{PCQ}
 
 \begin{frame}
@@ -116,6 +114,16 @@ By definition, inner product with respect to certain distribution is:
 \end{frame}
 %-------------------------------------------------------------
 %---------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Polynomial Chaos Quadrature (PCQ)}
+For some cases the orthogonality of basis can not be guaranteed, then the following system of equatiions need to be solved for coefficient evaluation.
+\begin{equation}
+ h(\eta_k)= \sum_i a_i \Psi_i (\eta_k) 
+ \label{eq:system-eq}
+\end{equation}
+\end{frame}
+%-------------------------------------------------------------
+%---------------------------------------------------------------------------%
 \section{Instructions for LHS script}
 \begin{frame}
 \frametitle{Instructions for LHS script}
@@ -142,7 +150,50 @@ To run LHS\_UQ you just nead to do the following:
 %---------------------------------------------------------------------------%
 \section{Instructions for PCQ script}
 \begin{frame}
-\frametitle{Instructions for PCQ script}
+\frametitle{Instructions for PCQ script (quick start)}
+To run PCQ\_UQ you just nead to do the following:
+ \begin{itemize}
+ 
+ \item Open a python interpreter by typing python on your terminal.
+ 
+ \item To load the PCQ\_UQ function type: from PCQ import PCQ\_UQ 
+ 
+ \item To run the function you need to provide the following arguments by typing:\newline PCQ\_UQ (num\_samples, mean\_rv, range\_rv, v\_dis, v\_name, rv\_value, alf, beta):
+  \begin{enumerate}
+ \item number of samples
+ \item mean of random variables
+ \item range of random variables
+ \item name of distribution for each random variables
+ \item name of two random parameters
+ \item default value of two random parameters (222 for speed, 333 for radius, 0.33 for water fraction, 1111 for temperature)
+ \item alf and beta are parameters for "Beta" distribution
+ \end{enumerate}
+
+ \end{itemize}
+
+\end{frame}
+%-------------------------------------------------------------
+%---------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Instructions for PCQ script (quick start)}
+For example:\\
+  PCQ\_UQ ([2,2], [200, 200], [100, 100], ["Uniform", "Uniform"], ['radius', 'speed'], [222, 333], 0.5, 0.5) \\
+ For this example, the input parameters are:
+ \begin{enumerate}
+ \item 2 Gaussian quadrature points for each random input parameter.
+ \item Mean for each RV is 200
+ \item Range of each RV is 100
+ \item Assume "Uniform" distribution for both RVs
+ \item Select radius and speed as input random parameters
+ \item The default value
+ \item $\alpha$ and $\beta$ is useless in this case
+ \end{enumerate}
+
+\end{frame}
+%-------------------------------------------------------------
+%---------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Instructions for PCQ script (more details)}
 The basic procedure of running the PCQ script:
  \begin{itemize}
  \item Generate sample points and quadrature weight
@@ -150,40 +201,57 @@ The basic procedure of running the PCQ script:
  \item Parse output file and extract desired properties
  \item Prepare for coefficient computing
  \item compute coefficient by PCQ (or by solving system of equations)
- \item Plot plume height (or mass loading) as a function of random parameters
- \item Plot histogram of plume height (or mass loading) for specific distribution of input parameters
+ \item Post process
  \end{itemize}
 \end{frame}
 %-------------------------------------------------------------
 %---------------------------------------------------------------------------%
 \begin{frame}
-\frametitle{Instructions for PCQ script}
+\frametitle{Instructions for PCQ script(more details)}
+Before starting, you have to determine:
+ \begin{itemize}
+ \item {\bf Random parameters}\\
+ The recommended input parameters are: eruption speed, vent radius, mass fraction of water in erupted material, temperaure of erupted material.
+ \item {\bf Underlying distribution} \\
+  For each random variable (given by dis\_i in the script)
+ \item {\bf Mean and range} \\
+  For each random parameters. (given by mean\_xxx and range\_xxx in the script)
+ \item {\bf Number of smaple points} \\
+ For each random variable
+ \end{itemize}
+\end{frame}
+%-------------------------------------------------------------
+%---------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Instructions for PCQ script(more details)}
 \begin{itemize}  
  \item {\bf Generate sample points and quadrature weight}:\\
    \begin{itemize}
     \item The Gaussian Quadrature points generator should be called accordingly based on distribution that you selected:
     Hermite for Gaussian, Legendre for Uniform, Leguerre for Gamma, and Jacobi for Beta (modify smplingx=...)
-    \item Transfer and scale sample points (do not need modification)
+    \item Transfer and scale sample points
     \end{itemize}
- \item {\bf Run simulation with sampled parameters}:\\
- Leave it as it is
+ \item {\bf Run simulations with sampled parameters}:\\
+ This will be done automatically. 
  \item {\bf Parse output file and extract desired properties}:\\
- Leave it as it is
+ The output is eruption mass flux and plume height. These two properties will be extracted with parse script automatically.
  \item {\bf Prepare for coefficient computing}:\\
- Leave it as it is
- \item {\bf compute coefficient by PCQ (or by solving system of equations)}:\\
- Leave it as it is    
+ Basically, just re-organize array into matrix of desired dimension.
 \end{itemize}
 \end{frame}
 %-------------------------------------------------------------
 %---------------------------------------------------------------------------
  \begin{frame}
- \frametitle{Instructions for PCQ script}
+ \frametitle{Instructions for PCQ script(more details)}
  \begin{itemize}
- \item {\bf Plot plume height (or mass loading) as a function of random parameters}:\\
- Maybe need to modify the xlable and ylabel, title...
- \item {\bf Plot histogram of plume height (or mass loading) for specific distribution of input parameters}:\\
- You can try different number of bins ect. depends on you.
+ \item {\bf compute coefficient by PCQ (or by solving system of equations)}:\\
+ When the orthogonality of the basis is guaranteed, use PCQ or more general method (sovling system of equations). Otherwise, only the more general method could be used. You can switch from these two method by commentting off/on.
+ \item {\bf Post process}:\\ 
+  \begin{itemize}
+   \item Plot plume height (or mass flux) as a function of random parameters. num\_plot\_xxx gives number of re-sample points for plot.
+   \item Plot histogram of plume height (or mass flux) for specific distribution of input parameters.  
+ \end{itemize}
+ \item {\bf Usage of subroutines is given very explicitly in the script} 
 \end{itemize}
 \end{frame}
 %-------------------------------------------------------------
