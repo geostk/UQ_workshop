@@ -97,7 +97,7 @@ def LHS_UQ(num_sample,min1,range1,min2,range2):
     
     output=np.vstack((lhs[:,0],lhs[:,1],eruption_height,particle_flux)).T
     
-    np.savetxt("output.csv", output, delimiter=",") 
+    np.savetxt("lhs_output.csv", output, delimiter=",") 
     
     print "Results of the experiment:\n"
     print "eruption height for the samples:   ",eruption_height

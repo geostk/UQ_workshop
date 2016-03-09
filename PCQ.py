@@ -228,7 +228,7 @@ def run_puffin (samples_radius, samples_speed, radius, speed, dircs_name):
         time.sleep(1)
         image.kill()
         os.chdir('..')
-        print i  
+#        print i  
 
     print "Running of puffin is finished!"
     
@@ -326,8 +326,8 @@ def PCQ_UQ (num_sample, mean_rv, range_rv, v_dis, name, rv_value, alf, beta):
     smpling2=sample_gaussian_dis(dis2, num_sample_speed, alf, beta)
 
     #This portition might not be correctly done
-    samples_radius=range_radius*smpling1[0]+mean_radius
-    samples_speed=range_speed*smpling2[0]+mean_speed
+    samples_radius=smpling1[0]+mean_radius
+    samples_speed=smpling2[0]+mean_speed
 
     weight1=smpling1[1]
     weight2=smpling2[1]
@@ -483,15 +483,13 @@ def PCQ_UQ (num_sample, mean_rv, range_rv, v_dis, name, rv_value, alf, beta):
     n, bins, patches = plt.hist(p_hist.flatten(), number_of_bins, normed=1, facecolor='blue')
     plt.title('Histogram for Particle Mass Flux')
     plt.show()
-
-    return 0
     
-alf=0.5
-beta=0.5
-num_sample=[2,2]
-mean_rv=[200, 200]
-range_rv=[100, 100]
-rv_value=[222, 333]
-v_dis=["Gamma", "Gamma"]
-v_name=['radius', 'speed']
-PCQ_UQ(num_sample, mean_rv, range_rv, v_dis, v_name, rv_value, alf, beta)
+#alf=0.5
+#beta=0.5
+#num_sample=[2,2]
+#mean_rv=[200, 200]
+#range_rv=[100, 100]
+#rv_value=[222, 333]
+#v_dis=["Gamma", "Gamma"]
+#v_name=['radius', 'speed']
+#PCQ_UQ(num_sample, mean_rv, range_rv, v_dis, v_name, rv_value, alf, beta)
