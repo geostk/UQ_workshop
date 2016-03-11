@@ -41,7 +41,7 @@
 \frametitle{Background}
 Direct Computation of Elevation height and Particle flux may be computationally very expensive.\\
 \vspace{1mm}
-For handling the complexity, a simple Emulator could be constructed \\
+For handling the complexity, a simple Emulator could be constructed. \\
 Some features of the presented model are:\\
 \begin{itemize} 
     \item  Assumes the underlying distribution as a Gaussian Stochastic process
@@ -52,7 +52,7 @@ Some features of the presented model are:\\
 
 \end{itemize}
 \end{frame}
-%---------------------------------------------------------------------------%
+%---------------------------------------------------------------------------%.
 
 \section{MPErK}
 \begin{frame}
@@ -92,7 +92,7 @@ Using the constructed emulator is fairly simple and involve following steps:\\
     \begin{itemize}
         \item The data should be passed in a .csv format
         \item There should be four columns in the csv file in the order: Water Fraction, Temperature, followed by corresponding Eruption height and Particle flux
-        \item For passing the data, just click the 'UPLOAD' button in the emulator and select your .csv file
+        \item For passing the data, just click the 'UPLOAD' button in the emulator and select your .csv file (in All Files option)
    \end{itemize}
     \item Select the type of Correlation functions which seem to be most suitable for the data
     \item Selection the optimization criterion for determining the correlation parameter
@@ -111,11 +111,24 @@ In order to analyze the performance of the constructed model, following visualiz
     \item Residuals for the Input sample
 \end{itemize}
 \vspace{4mm}
-Based on the visualizations for the gaussian mean surface as well as plots for the residulas and standard error, the decisions regarding the underlying correlation structure could be made
+Based on the visualizations for the gaussian mean surface as well as plots for the residuals and standard error, the decisions regarding the underlying correlation structure could be made\\
+\vspace{2mm}
+The values for Variance and Mean residuals also help in determining the most suitable correlation function 
 \end{frame}
 
 %---------------------------------------------------------------------------%
+\section{Predictor}
+\begin{frame}
+\frametitle{Prob(Eruption height \textless `Height')}
 
+\begin{itemize}
+    \item Enter the `Height' to be inspected (in meters)
+    \item In the background, the model generated samples from a Uniform distribution with the same parameters as done by Puffin
+    \item When the 'Calculate' button is clicked, these random samples are evaluated for eruption height through the coefficients of the Gaussian fitted model
+    \item Based on the proportion of the samples, which produce eruption height less than the entered height, the probability value is computed
+\end{itemize}
+
+\end{frame}
 
 
 
