@@ -57,6 +57,15 @@ Study of  uncertainty in input parameters of complex computer models:
 \end{itemize}
 \end{frame}
 %---------------------------------------------------------------------------%
+\section{BENT}
+\begin{frame}
+\frametitle{Test Problem -- uncertainty  in plume model BENT}
+\begin{itemize}
+\item Bent -- One-dimensional, numerical eruption column or plume models (Bursik '01, Pouget et al '16)
+\item Provides  estimate  of the amount of ash emplaced into the atmosphere at an estimated plume height
+\item Inputs to model include vent radius, vent velocity, water content, temperature
+\end{itemize}
+\end{frame}
 \section{LHS}
 \begin{frame}
 \frametitle{Latin Hypercube Sampling (LHS)}
@@ -84,10 +93,8 @@ To run LHS\_UQ you just need to do the following:
  \begin{itemize}
  
  \item Open a python interpreter by typing python on your terminal.
- 
  \item To load the LHS\_UQ function type: from LHS import LHS\_UQ 
- 
- \item To run the function you need to provide the following arguments by typing:\newline LHS\_UQ(num\_samples , min\_wat\_cont , range\_ wat\_cont , min\_temp ,range\_temp):
+ \item To run the function you need to provide the following arguments :\newline LHS\_UQ(num\_samples , min\_wat\_cont , range\_ wat\_cont , min\_temp ,range\_temp):
    \begin{enumerate}
  \item number of samples
  \item minimum of water content
@@ -95,13 +102,10 @@ To run LHS\_UQ you just need to do the following:
  \item minimum of temperature
  \item range of temperature
  \end{enumerate}
-
  \end{itemize}
-
 \end{frame}
 %-------------------------------------------------------------
 
---------------------
 \section{PCQ}
 
 \begin{frame}
@@ -143,7 +147,7 @@ By definition, inner product with respect to certain distribution is:
 %---------------------------------------------------------------------------%
 \begin{frame}
 \frametitle{Polynomial Chaos Quadrature (PCQ)}
-For some cases the orthogonality of basis can not be guaranteed, then the following system of equations need to be solved for coefficient evaluation.
+For some cases the orthogonality of basis can not be guaranteed, then the following system of equations (j=1..N)  need to be solved for coefficient evaluation.
 %\begin{equation}
 % h(\eta_k)= \sum_i a_i \Psi_i (\eta_k) 
 % \label{eq:system-eq}
