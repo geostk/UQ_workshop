@@ -20,8 +20,8 @@
 }
 
 \begin{document}
-\title {\bfseries{\sc Uncertainty in Geo-science:\\ A Workshop on Hazard Analysis}}
-\author {Prof. Abani Patra}
+\title {\bfseries{\sc Uncertainty in Geo-science:\\ A Workshop on Hazard Analysis \\ {\small Hands on Module} }}
+\author { H. Aghakhani, Z. Cao, P. Shekhar}
 \institute{University	at	Buffalo }
 \date{\small 15-17 March , 2016} 
 %--------------------------------------------------------------------------%
@@ -39,11 +39,11 @@
 \section{Problem Definition}
 \begin{frame}
 \frametitle{Problem Statement}
-Study of physical phenomena involved with uncertainty in input parameters: 
+Study of  uncertainty in input parameters of complex computer models: 
 \begin{itemize}
     \item  {\bf Intrusive}: change the original governing equation.
     \begin{itemize}
-        \item Polynomial Chaos Stochastic Galerkin.
+        \item Polynomial Chaos / Stochastic Galerkin.
         \item Perturbation methods
         \item ...
     \end{itemize}
@@ -67,67 +67,20 @@ Generating a sample set of uncertain values from equally probable intervals of t
     \item Select the number of samples
     \item Divide the pdf function into equal probability intervals.
     \item Generate random samples on each interval.
+    \item {\it Starting point for other methods -- Gaussian Processes, BLM etc.}
 \end{enumerate}
 {\bf Advantage}:
 \begin{itemize}
-    \item Much less number of samples require for convergence compared to MC
+    \item Fewer samples require for convergence compared to MC
     \item No need to change the original solver (like any other non-intrusive method)
 \end{itemize}
 %---------------------------------------------------------------------------%
 \end{frame}
-\section{PCQ}
-
-\begin{frame}
-\frametitle{Polynomial Chaos Quadrature (PCQ)}
-The basic idea comes from projection theory that each function can be written as an expansion of a series of orthogonal function:\\
-\begin{equation}
-     h(\eta)= \sum_i a_i \Psi_i (\eta) \label{eq:pcq-expansion}  
-\end{equation}
-So any uncertain parameter in the model can be expressed as above. \\
-The inner product of $h(\eta)$ and $j$th basis fucntion is
-\begin{equation}
-     <h(\eta), \Psi_j (\eta) >= <\sum_i a_i \Psi_i (\eta), \Psi_j (\eta)>\label{eq:pcq-inner-product}
-\end{equation}
-Due to linear property of the inner product and orthogonality of basis:
-\begin{equation}
-     <h(\eta), \Psi_j (\eta) >= a_i<\Psi_i (\eta), \Psi_j (\eta)> \label{eq:pcq-inner-product-orthogonal}
-\end{equation}
-\begin{equation}
-     a_i= \dfrac{<\Psi_i (\eta), \Psi_j (\eta)>}{<h(\eta), \Psi_j (\eta) >} \label{eq:pcq-coef}
-\end{equation}
-\end{frame}
-%-------------------------------------------------------------
-%---------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Polynomial Chaos Quadrature (PCQ)}
-The intergration is then approximated using the concept of the quadrature points.\\
-By definition, inner product with respect to certain distribution is:
-\begin{equation}
-\begin{split}
-      <h(\eta), \Psi_j (\eta) > &= \int_{-\infty}^{\infty} h(\eta) \Psi_j (\eta) p(\eta) d \eta \\
-      &= \sum_i h(\eta_i) \Psi_j (\eta_i) w_i 
-\end{split} \label{eq:pcq-gaussian-h} 
-\end{equation}
-\begin{equation}
-      <\Psi_j (\eta), \Psi_j (\eta) > = \sum_k \Psi_j (\eta_k) \Psi_j (\eta_k) w_k \label{eq:pcq-gaussian-psi} 
-\end{equation}
-\end{frame}
-%-------------------------------------------------------------
-%---------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Polynomial Chaos Quadrature (PCQ)}
-For some cases the orthogonality of basis can not be guaranteed, then the following system of equatiions need to be solved for coefficient evaluation.
-\begin{equation}
- h(\eta_k)= \sum_i a_i \Psi_i (\eta_k) 
- \label{eq:system-eq}
-\end{equation}
-\end{frame}
-%-------------------------------------------------------------
 %---------------------------------------------------------------------------%
 \section{Instructions for LHS script}
 \begin{frame}
 \frametitle{Instructions for LHS script}
-To run LHS\_UQ you just nead to do the following:
+To run LHS\_UQ you just need to do the following:
  \begin{itemize}
  
  \item Open a python interpreter by typing python on your terminal.
@@ -145,6 +98,60 @@ To run LHS\_UQ you just nead to do the following:
 
  \end{itemize}
 
+\end{frame}
+%-------------------------------------------------------------
+
+--------------------
+\section{PCQ}
+
+\begin{frame}
+\frametitle{Polynomial Chaos Quadrature (PCQ)}
+The basic idea comes from projection theory that each function can be written as an expansion of a series of orthogonal functions:\\
+\begin{equation}
+     h(\eta)= \sum_{i=1}^\infty a_i \Psi_i (\eta) \label{eq:pcq-expansion}  
+\end{equation}
+So any uncertain parameter in the model can be expressed as above. \\
+The inner product of $h(\eta)$ and $j$th basis function $\psi_j$ is $<h(\eta), \Psi_j (\eta) > \equiv \int_{-\infty}^{\infty} h(\eta) \Psi_j (\eta) \rho(\eta) d \eta $ $\rho(x)$ is a weight function
+\begin{equation}
+     <h(\eta), \Psi_j (\eta) >= <\sum_i a_i \Psi_i (\eta), \Psi_j (\eta)>\label{eq:pcq-inner-product}
+\end{equation}
+Due to orthogonality of basis:
+\begin{equation}
+     <h(\eta), \Psi_j (\eta) >= a_i<\Psi_i (\eta), \Psi_j (\eta)> \label{eq:pcq-inner-product-orthogonal}
+\end{equation}
+\begin{equation}
+     a_i= \frac{<h(\eta), \Psi_j (\eta) >}{<\Psi_i (\eta), \Psi_i (\eta)>}\label{eq:pcq-coef}
+\end{equation}
+\end{frame}
+%-------------------------------------------------------------
+%---------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Polynomial Chaos Quadrature (PCQ)}
+The integration is then approximated using numerical quadrature.\\
+By definition, inner product with respect to certain distribution is:
+\begin{equation}
+\begin{split}
+      <h(\eta), \Psi_j (\eta) > &= \int_{-\infty}^{\infty} h(\eta) \Psi_j (\eta) \rho(\eta) d \eta \\
+      &= \sum_i h(\eta_i) \Psi_j (\eta_i) w_i 
+\end{split} \label{eq:pcq-gaussian-h} 
+\end{equation}
+\begin{equation}
+      <\Psi_j (\eta), \Psi_j (\eta) > = \sum_k \Psi_j (\eta_k) \Psi_j (\eta_k) w_k \label{eq:pcq-gaussian-psi} 
+\end{equation}
+\end{frame}
+%-------------------------------------------------------------
+%---------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Polynomial Chaos Quadrature (PCQ)}
+For some cases the orthogonality of basis can not be guaranteed, then the following system of equations need to be solved for coefficient evaluation.
+%\begin{equation}
+% h(\eta_k)= \sum_i a_i \Psi_i (\eta_k) 
+% \label{eq:system-eq}
+%\end{equation}
+
+\begin{equation}
+    <\sum_i a_i \Psi_i (\eta), \Psi_j (\eta)>   = <h(\eta), \Psi_j (\eta) >
+\end{equation}
 \end{frame}
 %-------------------------------------------------------------
 %---------------------------------------------------------------------------%
@@ -172,7 +179,7 @@ To run PCQ\_UQ you just nead to do the following:
  \end{itemize}
 
 \end{frame}
-%-------------------------------------------------------------
+%-----------------------------------------
 %---------------------------------------------------------------------------%
 \begin{frame}
 \frametitle{Instructions for PCQ script (quick start)}
