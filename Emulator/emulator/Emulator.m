@@ -68,6 +68,7 @@ global val;
 global data;
 global value;
 global prob;
+global length;
 
 
 % --- Outputs from this function are returned to the command line.
@@ -139,6 +140,7 @@ global ypred1;
 global ypred2;
 global val;
 global data;
+global length;
 
 corr_method = get(handles.correlation_method,'SelectedObject');
 corr_family = get(handles.correlation_family,'SelectedObject');
@@ -248,18 +250,12 @@ set(handles.text20,'String','DONE');
 
 var1 = num2str(ypred1.est.sigma2);
 
-
-set(handles.text25,'String',var1)
-
 res1 = num2str(mean(ypred1.cv.resids));
 
 set(handles.text26,'String',res1)
 
 
 var2 = num2str(ypred2.est.sigma2);
-
-
-set(handles.text28,'String',var2)
 
 res2 = num2str(mean(ypred2.cv.resids));
 
@@ -331,14 +327,18 @@ function pushbutton4_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+
+
+
 global ypred1;
 global ypred2;
+global length;
 
 x = ypred1.cv.se;
 axes(handles.axes1);
 cla(handles.axes1,'reset');
 
-scatter(1:64,x,100,'filled')
+scatter(1:length,x,100,'filled')
 xlabel('Data');
 ylabel('Standard Error');
 title('Eruption Height');
@@ -347,7 +347,7 @@ y = ypred2.cv.se;
 axes(handles.axes2);
 cla(handles.axes2,'reset');
 
-scatter(1:64,y,100,'filled')
+scatter(1:length,y,100,'filled')
 xlabel('Data');
 ylabel('Standard Error');
 title('Particle Flux');
@@ -365,12 +365,13 @@ function pushbutton5_Callback(hObject, eventdata, handles)
 
 global ypred1;
 global ypred2;
+global length;
 
 x = ypred1.cv.resids;
 axes(handles.axes1);
 cla(handles.axes1,'reset');
 
-scatter(1:64,x,100,'filled')
+scatter(1:length,x,100,'filled')
 xlabel('Data');
 ylabel('Residuals');
 title('Eruption Height');
@@ -380,8 +381,8 @@ y = ypred2.cv.resids;
 axes(handles.axes2);
 cla(handles.axes2,'reset');
 
-scatter(1:64,y,100,'filled')
-scatter(1:64,y,100,'filled')
+scatter(1:length,y,100,'filled')
+%scatter(1:64,y,100,'filled')
 xlabel('Data');
 ylabel('Residuals');
 title('Particle Flux');

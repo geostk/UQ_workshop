@@ -6,4 +6,4 @@ For running the GUI: Emulator.m is the main file.
 
 
 
-An example input file (data.csv) has been included
+Example input files (data.csv and 256.csv) have been included
