@@ -99,13 +99,13 @@ def LHS_UQ(num_sample,min1,range1,min2,range2):
     
     np.savetxt("lhs_output.csv", output, delimiter=",") 
     
-    print "Results of the experiment:\n"
-    print "eruption height for the samples:   ",eruption_height
-    print "mean of height:                    ",h_mean
-    print "standard deviation of height:      ",h_std
-    print "particle flux for the samples:     ",particle_flux
-    print "mean of particle flux:               %e"%particle_flux_mean
-    print "standard deviation of particle flux: %e" %particle_flux_std
+    print ("Results of the experiment:")
+    print ("eruption height for the samples:   ",eruption_height)
+    print ("mean of height:                    ",h_mean)
+    print ("standard deviation of height:      ",h_std)
+    print ("particle flux for the samples:     ",particle_flux)
+    print ("mean of particle flux:               %e"%particle_flux_mean)
+    print ("standard deviation of particle flux: %e" %particle_flux_std)
 
             
     
